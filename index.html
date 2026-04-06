@@ -573,7 +573,7 @@ function AdminPanel({onClose,vehicles,refresh}){
 
 /* ═══ APP ═══ */
 function App(){
-  const [splash,setSplash]=useState(()=>!sessionStorage.getItem('asCar_splash')&&!window.matchMedia('(prefers-reduced-motion:reduce)').matches);
+  const [splash,setSplash]=useState(()=>!window.matchMedia('(prefers-reduced-motion:reduce)').matches);
   const [view,setView]=useState('home');
   const [detailVehicle,setDetailVehicle]=useState(null);
   const [statusFilter,setStatusFilter]=useState('all');
