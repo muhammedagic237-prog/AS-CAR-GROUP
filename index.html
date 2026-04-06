@@ -376,6 +376,12 @@ const VEHICLES=[
   {id:'v26',make:'Seat',model:'Alhambra',title:'SEAT ALHAMBRA 2.0 TDI 103kw DSG 7 SJEDIŠTA FULL UVOZ',year:2012,km:299000,fuel:'Dizel',cc:2000,kw:103,ks:140,trans:'Automatik (DSG)',drive:'Prednji (FWD)',color:'Siva',doors:5,priceNoVAT:19900,priceVAT:Math.round(19900*1.17),status:'na-lageru',featured:false,equip:['7 sjedišta','DSG automatik','Full oprema','Klima','Navigacija','Tempomat','Parking senzori'],desc:'Seat Alhambra sa 7 sjedišta i DSG mjenjačem. Full oprema. Uvoz.',img:CI['sharan']||'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80'}
 ];
 
+// Clear stale data from old vehicle set
+if(localStorage.getItem('asCar_dataVersion')!=='v3'){
+  localStorage.removeItem('asCar_vehicles');
+  localStorage.removeItem('asCar_overrides');
+  localStorage.setItem('asCar_dataVersion','v3');
+}
 const getVehicles=()=>{
   const added=JSON.parse(localStorage.getItem('asCar_vehicles')||'[]');
   const overrides=JSON.parse(localStorage.getItem('asCar_overrides')||'{}');
@@ -602,7 +608,7 @@ function App(){
   const [yearFilter,setYearFilter]=useState('');
   const [priceFilter,setPriceFilter]=useState('');
   const [vehicles,setVehicles]=useState(getVehicles);
-  const [visible,setVisible]=useState(9);
+  const [visible,setVisible]=useState(30);
   const [drawerOpen,setDrawerOpen]=useState(false);
   const [scrolled,setScrolled]=useState(false);
   const [showAdmin,setShowAdmin]=useState(false);
