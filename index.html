@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>AS CAR GROUP — Kvalitet. Garancija. Povjerenje.</title>
-  <meta name="description" content="AS CAR GROUP - Uvoz kvalitetnih vozila iz Njemačke i Zapadne Evrope. Garancija 24 mjeseca. Zenica, BiH."/>
+  <meta name="description" content="AS CAR GROUP - Uvoz kvalitetnih vozila iz Njemačke i Zapadne Evrope. Zenica, BiH."/>
   <meta name="theme-color" content="#DC2626"/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
@@ -829,7 +829,7 @@ function App(){
           <div className="footer-grid">
             <div>
               <div className="footer-brand"><img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt=""/><span className="footer-brand-name">AS CAR GROUP</span></div>
-              <p className="footer-desc">Uvoz kvalitetnih vozila iz Njemačke i Zapadne Evrope. Garancija 24 mjeseca. Preko 20 godina iskustva.</p>
+              <p className="footer-desc">Uvoz kvalitetnih vozila iz Njemačke i Zapadne Evrope.</p>
             </div>
             <div className="footer-col"><h4>Brzi linkovi</h4><ul><li><button onClick={()=>navigateClean('home')}>Početna</button></li><li><button onClick={()=>navigateClean('vozila')}>Ponuda vozila</button></li><li><button onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button></li><li><button onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li></ul></div>
             <div className="footer-col"><h4>Kontakt</h4><ul><li><span>📍 Zenica, BiH</span></li><li><a href="tel:+387603017220">📞 060 30 17 220</a></li><li><a href="https://wa.me/387603017220">💬 WhatsApp</a></li></ul></div>
