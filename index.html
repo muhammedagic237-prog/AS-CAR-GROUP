@@ -396,7 +396,7 @@ const VehicleCard=memo(({v,onClick,isAdmin,onAdminEdit})=>{
   const ribbonLabel=statusRibbonLabel[v.status];
   const isSold=v.status==='prodano';
   return(
-    <div className={`v-card ${isSold?'sold-card':''}`} onClick={()=>onClick(v)}>
+    <div className={`v-card ${isSold?'sold-card':''}`} onClick={()=>window.open('https://olx.ba/artikal/'+v.id,'_blank')}>
       <div className="v-img-wrap">
         <div className="v-img" style={{backgroundImage:`url('${v.img}')`}}></div>
         {ribbonLabel&&<div className={`v-ribbon ${st.ribbon||''}`}>{ribbonLabel}</div>}
@@ -416,7 +416,7 @@ const VehicleCard=memo(({v,onClick,isAdmin,onAdminEdit})=>{
           <div className="v-price">{fmtPrice(v.priceNoVAT)} KM</div>
           <div className="v-price-vat">sa PDV: {fmtPrice(v.priceVAT)} KM</div>
         </div>
-        <div className="v-link">Detaljnije →</div>
+        <div className="v-link">Pogledaj na OLX.ba →</div>
       </div>
     </div>
   );
