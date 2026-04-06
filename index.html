@@ -437,7 +437,7 @@ const VehicleCard=memo(({v,onClick,isAdmin,onAdminEdit})=>{
         </div>
         <div className="v-price-box">
           <div className="v-price">{fmtPrice(v.priceNoVAT)} KM</div>
-          <div className="v-price-vat">sa PDV: {fmtPrice(v.priceVAT)} KM</div>
+          
         </div>
         <div className="v-link">Pogledaj na OLX.ba →</div>
       </div>
@@ -468,9 +468,9 @@ function VehicleDetail({v,onClose}){
             <span className="detail-tag">{v.drive}</span>
           </div>
           <div className="detail-price-card">
-            <div className="detail-price-label">Cijena bez PDV-a</div>
+            <div className="detail-price-label">Cijena</div>
             <div className="detail-price-main">{fmtPrice(v.priceNoVAT)} KM</div>
-            <div className="detail-price-vat">Cijena sa PDV-om: {fmtPrice(v.priceVAT)} KM</div>
+            
           </div>
           <div className="detail-grid">
             <div className="detail-specs">
@@ -577,7 +577,7 @@ function AdminPanel({onClose,vehicles,refresh}){
               </div>
               <div className="admin-row">
                 <div className="admin-field"><label className="admin-label">Snaga (kW)</label><input className="admin-input" type="number" value={form.kw} onChange={e=>uf('kw',+e.target.value)}/></div>
-                <div className="admin-field"><label className="admin-label">Cijena bez PDV (KM)</label><input className="admin-input" type="number" value={form.priceNoVAT} onChange={e=>uf('priceNoVAT',+e.target.value)}/></div>
+                <div className="admin-field"><label className="admin-label">Cijena (KM)</label><input className="admin-input" type="number" value={form.priceNoVAT} onChange={e=>uf('priceNoVAT',+e.target.value)}/></div>
               </div>
               <div className="admin-row">
                 <div className="admin-field"><label className="admin-label">Status</label><select className="admin-input" value={form.status} onChange={e=>uf('status',e.target.value)}><option value="na-lageru">Na lageru</option><option value="u-dolasku">U dolasku</option><option value="na-akciji">Na akciji</option><option value="novo">Novo</option></select></div>
