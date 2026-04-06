@@ -707,7 +707,7 @@ function App(){
             <div className="hero-bg"></div><div className="hero-overlay"></div>
             <div className="hero-content">
               <div className="hero-warranty">✓ Garancija na porijeklo i kilometražu</div>
-              <h1 className="hero-title"><span>Pronađite </span><span>Vaše </span><span>novo </span><span>vozilo</span></h1>
+              <h1 className="hero-title"><span>Pronađite </span><span>Vaše </span><span>Novo </span><span>Vozilo</span></h1>
               <p className="hero-sub">Uvoz iz Njemačke i Zapadne Evrope. Provjerena historija. Garancija na svako vozilo.</p>
               <div className="hero-stats">
                 <div className="hero-stat"><div className="hero-stat-num">✓</div><div className="hero-stat-label">Garancija na porijeklo i kilometražu</div></div>
@@ -730,20 +730,13 @@ function App(){
                 </select>
                 <select className="search-select" value={fuelFilter} onChange={e=>setFuelFilter(e.target.value)}>
                   <option value="">Gorivo</option>
-                  {fuels.map(f=><option key={f} value={f}>{f}</option>)}
+                  <option value="Dizel">Dizel</option>
+                  <option value="Benzin">Benzin</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Električni">Električni</option>
                 </select>
-                <select className="search-select" value={priceFilter} onChange={e=>setPriceFilter(e.target.value)}>
-                  <option value="">Cijena do</option>
-                  <option value="10000">10.000 KM</option>
-                  <option value="20000">20.000 KM</option>
-                  <option value="25000">25.000 KM</option>
-                  <option value="35000">35.000 KM</option>
-                  <option value="50000">50.000 KM</option>
-                </select>
-                <select className="search-select" value={yearFilter} onChange={e=>setYearFilter(e.target.value)}>
-                  <option value="">Godina od</option>
-                  {years.map(y=><option key={y} value={String(y)}>{y}</option>)}
-                </select>
+                <input className="search-input" type="number" placeholder="Cijena do (KM)" value={priceFilter} onChange={e=>setPriceFilter(e.target.value)} style={{paddingLeft:'14px'}}/>
+                <input className="search-input" type="number" placeholder="Godina od" value={yearFilter} onChange={e=>setYearFilter(e.target.value)} style={{paddingLeft:'14px'}}/>
                 <button className="search-btn" onClick={navigateWithFilters}>🔍 Pretraži</button>
               </div>
               <div className="search-count">Trenutno {vehicles.filter(v=>v.status!=='prodano').length} vozila u ponudi</div>
