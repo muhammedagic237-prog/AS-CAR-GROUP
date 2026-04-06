@@ -396,8 +396,8 @@ const statusRibbonLabel={'na-akciji':'NA AKCIJI','u-dolasku':'U DOLASKU','novo':
 function Splash({onDone}){
   const [exiting,setExiting]=useState(false);
   useEffect(()=>{
-    const t1=setTimeout(()=>setExiting(true),2000);
-    const t2=setTimeout(onDone,2500);
+    const t1=setTimeout(()=>setExiting(true),3000);
+    const t2=setTimeout(onDone,3500);
     return()=>{clearTimeout(t1);clearTimeout(t2);};
   },[]);
   return(
