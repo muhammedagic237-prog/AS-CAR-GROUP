@@ -581,6 +581,9 @@ function App(){
   const [detailVehicle,setDetailVehicle]=useState(null);
   const [statusFilter,setStatusFilter]=useState('all');
   const [makeFilter,setMakeFilter]=useState('');
+  const [fuelFilter,setFuelFilter]=useState('');
+  const [yearFilter,setYearFilter]=useState('');
+  const [priceFilter,setPriceFilter]=useState('');
   const [vehicles,setVehicles]=useState(getVehicles);
   const [visible,setVisible]=useState(9);
   const [drawerOpen,setDrawerOpen]=useState(false);
@@ -618,16 +621,21 @@ function App(){
 
   const featured=vehicles.filter(v=>v.featured&&v.status!=='prodano').slice(0,6);
   const makes=[...new Set(vehicles.map(v=>v.make))].sort();
+  const fuels=[...new Set(vehicles.map(v=>v.fuel))].sort();
+  const years=[...new Set(vehicles.map(v=>v.year))].sort((a,b)=>b-a);
   const filtered=useMemo(()=>{
     let list=vehicles;
     if(statusFilter==='featured')list=list.filter(v=>v.featured);
     else if(statusFilter!=='all')list=list.filter(v=>v.status===statusFilter);
     if(makeFilter)list=list.filter(v=>v.make===makeFilter);
-    // Sort: sold last
+    if(fuelFilter)list=list.filter(v=>v.fuel===fuelFilter);
+    if(yearFilter)list=list.filter(v=>v.year>=parseInt(yearFilter));
+    if(priceFilter){const max=parseInt(priceFilter);list=list.filter(v=>v.priceNoVAT>0&&v.priceNoVAT<=max);}
     return list.sort((a,b)=>(a.status==='prodano'?1:0)-(b.status==='prodano'?1:0));
-  },[vehicles,statusFilter,makeFilter]);
+  },[vehicles,statusFilter,makeFilter,fuelFilter,yearFilter,priceFilter]);
 
-  const navigate=(to)=>{setView(to);setVisible(9);setStatusFilter('all');setMakeFilter('');window.scrollTo(0,0);setDrawerOpen(false);};
+  const navigateClean=(to)=>{setView(to);setVisible(9);setStatusFilter('all');setMakeFilter('');setFuelFilter('');setYearFilter('');setPriceFilter('');window.scrollTo(0,0);setDrawerOpen(false);};
+  const navigateWithFilters=()=>{setView('vozila');setVisible(9);window.scrollTo(0,0);setDrawerOpen(false);};
 
   return(
     <>
@@ -636,16 +644,16 @@ function App(){
       {/* NAV */}
       <nav className={`nav ${scrolled?'scrolled':''}`}>
         <div className="nav-inner">
-          <a href="#" className="nav-brand" onClick={(e)=>{e.preventDefault();navigate('home');}}>
+          <a href="#" className="nav-brand" onClick={(e)=>{e.preventDefault();navigateClean('home');}}>
             <img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt="AS CAR GROUP"/>
             <span>AS CAR GROUP</span>
             {isAdmin&&<span style={{width:8,height:8,borderRadius:'50%',background:'var(--red)',marginLeft:4}}></span>}
           </a>
           <ul className="nav-links">
-            <li><button className={`nav-link ${view==='home'?'active':''}`} onClick={()=>navigate('home')}>Početna</button></li>
-            <li><button className={`nav-link ${view==='vozila'?'active':''}`} onClick={()=>navigate('vozila')}>Ponuda vozila</button></li>
-            <li><button className="nav-link" onClick={()=>{navigate('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button></li>
-            <li><button className="nav-link" onClick={()=>{navigate('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li>
+            <li><button className={`nav-link ${view==='home'?'active':''}`} onClick={()=>navigateClean('home')}>Početna</button></li>
+            <li><button className={`nav-link ${view==='vozila'?'active':''}`} onClick={()=>navigateClean('vozila')}>Ponuda vozila</button></li>
+            <li><button className="nav-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button></li>
+            <li><button className="nav-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li>
           </ul>
           <div className="nav-actions">
             <a href="tel:+38763123456" className="nav-circle red" aria-label="Pozovi">📞</a>
@@ -658,12 +666,12 @@ function App(){
       <aside className={`nav-drawer ${drawerOpen?'open':''}`}>
         <div className="drawer-header"><div className="nav-brand"><img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt="" style={{width:32,height:32}}/><span style={{fontFamily:'var(--font-h)',fontWeight:700,fontSize:15}}>AS CAR GROUP</span></div><button className="drawer-close" onClick={()=>setDrawerOpen(false)}>×</button></div>
         <div className="drawer-links">
-          <button className="drawer-link" onClick={()=>navigate('home')}>Početna</button>
-          <button className="drawer-link" onClick={()=>navigate('vozila')}>Sva vozila</button>
-          <button className="drawer-link" onClick={()=>{navigate('vozila');setTimeout(()=>setStatusFilter('na-lageru'),100);}}>Na lageru</button>
-          <button className="drawer-link" onClick={()=>{navigate('vozila');setTimeout(()=>setStatusFilter('na-akciji'),100);}}>Na akciji</button>
-          <button className="drawer-link" onClick={()=>{navigate('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button>
-          <button className="drawer-link" onClick={()=>{navigate('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button>
+          <button className="drawer-link" onClick={()=>navigateClean('home')}>Početna</button>
+          <button className="drawer-link" onClick={()=>navigateClean('vozila')}>Sva vozila</button>
+          <button className="drawer-link" onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-lageru'),100);}}>Na lageru</button>
+          <button className="drawer-link" onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-akciji'),100);}}>Na akciji</button>
+          <button className="drawer-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button>
+          <button className="drawer-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button>
         </div>
         <div className="drawer-footer">
           <a href="tel:+38763123456" className="btn btn-red" style={{flex:1,justifyContent:'center'}}>📞 Pozovi</a>
@@ -678,15 +686,14 @@ function App(){
           <section className="hero">
             <div className="hero-bg"></div><div className="hero-overlay"></div>
             <div className="hero-content">
-              <div className="hero-warranty">✓ Garancija 24 mjeseca na motor i mjenjač</div>
+              <div className="hero-warranty">✓ Garancija na porijeklo i kilometražu</div>
               <h1 className="hero-title"><span>Pronađite </span><span>svoj </span><span>sljedeći </span><span>automobil</span></h1>
               <p className="hero-sub">Uvoz iz Njemačke i Zapadne Evrope. Provjerena historija. Garancija na svako vozilo.</p>
               <div className="hero-stats">
-                <div className="hero-stat"><div className="hero-stat-num">24 mj</div><div className="hero-stat-label">Garancija</div></div>
-                <div className="hero-stat"><div className="hero-stat-num">100%</div><div className="hero-stat-label">Provjerena historija</div></div>
+                <div className="hero-stat"><div className="hero-stat-num">✓</div><div className="hero-stat-label">Garancija na porijeklo i kilometražu</div></div>
               </div>
               <div className="hero-btns">
-                <button className="btn btn-red" onClick={()=>navigate('vozila')}>Pogledaj ponudu →</button>
+                <button className="btn btn-red" onClick={()=>navigateClean('vozila')}>Pogledaj ponudu →</button>
                 <button className="btn btn-white" onClick={()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'})}>Kontaktirajte nas</button>
               </div>
             </div>
@@ -697,15 +704,27 @@ function App(){
           <div className="search-bar">
             <div className="search-card">
               <div className="search-row">
-                <select className="search-select" value={makeFilter} onChange={e=>{setMakeFilter(e.target.value);navigate('vozila');}}>
+                <select className="search-select" value={makeFilter} onChange={e=>setMakeFilter(e.target.value)}>
                   <option value="">Sve marke</option>
                   {makes.map(m=><option key={m} value={m}>{m}</option>)}
                 </select>
-                <select className="search-select"><option>Svi modeli</option></select>
-                <select className="search-select"><option>Cijena do</option><option>10.000 KM</option><option>20.000 KM</option><option>30.000 KM</option><option>50.000 KM</option></select>
-                <select className="search-select"><option>Godina od</option>{[2025,2024,2023,2022,2021,2020,2019,2018].map(y=><option key={y}>{y}</option>)}</select>
-                <select className="search-select"><option>Gorivo</option><option>Diesel</option><option>Benzin</option><option>Hybrid</option></select>
-                <button className="search-btn" onClick={()=>navigate('vozila')}>🔍 Pretraži</button>
+                <select className="search-select" value={fuelFilter} onChange={e=>setFuelFilter(e.target.value)}>
+                  <option value="">Gorivo</option>
+                  {fuels.map(f=><option key={f} value={f}>{f}</option>)}
+                </select>
+                <select className="search-select" value={priceFilter} onChange={e=>setPriceFilter(e.target.value)}>
+                  <option value="">Cijena do</option>
+                  <option value="10000">10.000 KM</option>
+                  <option value="20000">20.000 KM</option>
+                  <option value="25000">25.000 KM</option>
+                  <option value="35000">35.000 KM</option>
+                  <option value="50000">50.000 KM</option>
+                </select>
+                <select className="search-select" value={yearFilter} onChange={e=>setYearFilter(e.target.value)}>
+                  <option value="">Godina od</option>
+                  {years.map(y=><option key={y} value={String(y)}>{y}</option>)}
+                </select>
+                <button className="search-btn" onClick={navigateWithFilters}>🔍 Pretraži</button>
               </div>
               <div className="search-count">Trenutno {vehicles.filter(v=>v.status!=='prodano').length} vozila u ponudi</div>
             </div>
@@ -721,7 +740,7 @@ function App(){
               <div className="feat-scroll">
                 {featured.map(v=><VehicleCard key={v.id} v={v} onClick={setDetailVehicle} isAdmin={isAdmin} onAdminEdit={(v)=>{setShowAdmin(true);}}/>)}
               </div>
-              <div style={{textAlign:'right',marginTop:8}}><button className="v-link" style={{display:'inline-flex'}} onClick={()=>navigate('vozila')}>Pogledaj sva vozila →</button></div>
+              <div style={{textAlign:'right',marginTop:8}}><button className="v-link" style={{display:'inline-flex'}} onClick={()=>navigateClean('vozila')}>Pogledaj sva vozila →</button></div>
             </div>
           </section>
 
@@ -781,7 +800,7 @@ function App(){
               </div>
             </div>
           </div>
-          <div className="inv-back"><a href="#" onClick={(e)=>{e.preventDefault();navigate('home');}}>← Nazad na početnu</a></div>
+          <div className="inv-back"><a href="#" onClick={(e)=>{e.preventDefault();navigateClean('home');}}>← Nazad na početnu</a></div>
           <div className="inv-grid">
             {filtered.length===0?<div className="inv-empty">🚗 Nema rezultata za odabrane filtere.</div>:
               filtered.slice(0,visible).map(v=><VehicleCard key={v.id} v={v} onClick={setDetailVehicle} isAdmin={isAdmin} onAdminEdit={()=>setShowAdmin(true)}/>)
@@ -799,9 +818,9 @@ function App(){
               <div className="footer-brand"><img src={typeof LOGO_DATA!=='undefined'?LOGO_DATA:''} alt=""/><span className="footer-brand-name">AS CAR GROUP</span></div>
               <p className="footer-desc">Uvoz kvalitetnih vozila iz Njemačke i Zapadne Evrope. Garancija 24 mjeseca. Preko 20 godina iskustva.</p>
             </div>
-            <div className="footer-col"><h4>Brzi linkovi</h4><ul><li><button onClick={()=>navigate('home')}>Početna</button></li><li><button onClick={()=>navigate('vozila')}>Ponuda vozila</button></li><li><button onClick={()=>{navigate('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button></li><li><button onClick={()=>{navigate('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li></ul></div>
+            <div className="footer-col"><h4>Brzi linkovi</h4><ul><li><button onClick={()=>navigateClean('home')}>Početna</button></li><li><button onClick={()=>navigateClean('vozila')}>Ponuda vozila</button></li><li><button onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('garancija')?.scrollIntoView({behavior:'smooth'}),100);}}>Garancija</button></li><li><button onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li></ul></div>
             <div className="footer-col"><h4>Kontakt</h4><ul><li><span>📍 Ljubuški, BiH</span></li><li><a href="tel:+38763123456">📞 +387 63 123 456</a></li><li><a href="https://wa.me/38763123456">💬 WhatsApp</a></li></ul></div>
-            <div className="footer-col"><h4>Ponuda</h4><ul><li><button onClick={()=>{navigate('vozila');setTimeout(()=>setStatusFilter('na-lageru'),100);}}>Na lageru</button></li><li><button onClick={()=>{navigate('vozila');setTimeout(()=>setStatusFilter('na-akciji'),100);}}>Na akciji</button></li><li><button onClick={()=>{navigate('vozila');setTimeout(()=>setStatusFilter('u-dolasku'),100);}}>U dolasku</button></li></ul></div>
+            <div className="footer-col"><h4>Ponuda</h4><ul><li><button onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-lageru'),100);}}>Na lageru</button></li><li><button onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('na-akciji'),100);}}>Na akciji</button></li><li><button onClick={()=>{navigateClean('vozila');setTimeout(()=>setStatusFilter('u-dolasku'),100);}}>U dolasku</button></li></ul></div>
           </div>
           <div className="footer-bottom">
             <span>© 2025 AS CAR GROUP. Sva prava zadržana.</span>
