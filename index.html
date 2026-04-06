@@ -81,9 +81,9 @@
     .nav-link:hover,.nav-link.active{color:var(--red)}
     .nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
     .nav-actions{display:flex;gap:8px;align-items:center}
-    .nav-circle{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:16px}
-    .nav-circle.red{background:var(--red);color:#fff}.nav-circle.red:hover{background:var(--red-hover)}
-    .nav-circle.green{background:#25D366;color:#fff}.nav-circle.green:hover{filter:brightness(0.9)}
+    .nav-circle{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s var(--ease);box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+    .nav-circle.red{background:var(--red);color:#fff}.nav-circle.red:hover{background:var(--red-hover);transform:scale(1.08);box-shadow:0 4px 14px rgba(220,38,38,0.35)}
+    .nav-circle.green{background:#25D366;color:#fff}.nav-circle.green:hover{background:#20BD5A;transform:scale(1.08);box-shadow:0 4px 14px rgba(37,211,102,0.35)}
     .nav-circle.gray{background:var(--g100);color:var(--g500)}.nav-circle.gray:hover{background:var(--g200)}
     .nav-toggle{display:none;flex-direction:column;gap:5px;padding:8px}
     .nav-toggle span{display:block;width:20px;height:2px;background:var(--red);transition:all 0.3s var(--ease)}
@@ -176,9 +176,9 @@
 
     /* FLOATING CONTACT */
     .float-contact{position:fixed;right:20px;bottom:100px;z-index:50;display:flex;flex-direction:column;gap:10px}
-    .float-btn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;box-shadow:var(--shadow-lg);transition:all 0.2s var(--ease)}
-    .float-btn.wa{background:#25D366}.float-btn.wa:hover{transform:translateX(-4px) scale(1.05)}
-    .float-btn.ph{background:var(--red)}.float-btn.ph:hover{transform:translateX(-4px) scale(1.05)}
+    .float-btn{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.2);transition:all 0.3s var(--ease)}
+    .float-btn.wa{background:#25D366}.float-btn.wa:hover{transform:translateX(-6px) scale(1.1);box-shadow:0 6px 20px rgba(37,211,102,0.4)}
+    .float-btn.ph{background:var(--red)}.float-btn.ph:hover{transform:translateX(-6px) scale(1.1);box-shadow:0 6px 20px rgba(220,38,38,0.4)}
 
     /* BACK TO TOP */
     #btt{position:fixed;bottom:32px;right:20px;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:0;transform:translateY(20px);pointer-events:none;transition:all 0.3s var(--ease);z-index:49;box-shadow:var(--shadow-md)}
@@ -676,8 +676,8 @@ function App(){
             <li><button className="nav-link" onClick={()=>{navigateClean('home');setTimeout(()=>document.getElementById('kontakt')?.scrollIntoView({behavior:'smooth'}),100);}}>Kontakt</button></li>
           </ul>
           <div className="nav-actions">
-            <a href="tel:+38763123456" className="nav-circle red" aria-label="Pozovi">📞</a>
-            <a href="https://wa.me/38763123456" className="nav-circle green" aria-label="WhatsApp">💬</a>
+            <a href="tel:+38763123456" className="nav-circle red" aria-label="Pozovi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+            <a href="https://wa.me/38763123456" className="nav-circle green" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .613.613l4.458-1.495A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.347 0-4.522-.8-6.243-2.143l-.36-.286-3.134 1.051 1.051-3.134-.286-.36A9.956 9.956 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg></a>
           </div>
           <button className={`nav-toggle ${drawerOpen?'open':''}`} onClick={()=>setDrawerOpen(!drawerOpen)} aria-label="Menu"><span></span><span></span><span></span></button>
         </div>
@@ -707,7 +707,7 @@ function App(){
             <div className="hero-bg"></div><div className="hero-overlay"></div>
             <div className="hero-content">
               <div className="hero-warranty">✓ Garancija na porijeklo i kilometražu</div>
-              <h1 className="hero-title"><span>Pronađite </span><span>svoj </span><span>sljedeći </span><span>automobil</span></h1>
+              <h1 className="hero-title"><span>Pronađite </span><span>Vaše </span><span>novo </span><span>vozilo</span></h1>
               <p className="hero-sub">Uvoz iz Njemačke i Zapadne Evrope. Provjerena historija. Garancija na svako vozilo.</p>
               <div className="hero-stats">
                 <div className="hero-stat"><div className="hero-stat-num">✓</div><div className="hero-stat-label">Garancija na porijeklo i kilometražu</div></div>
@@ -851,8 +851,8 @@ function App(){
 
       {/* FLOATING CONTACT */}
       <div className="float-contact">
-        <a href="https://wa.me/38763123456" className="float-btn wa" aria-label="WhatsApp">💬</a>
-        <a href="tel:+38763123456" className="float-btn ph" aria-label="Pozovi">📞</a>
+        <a href="https://wa.me/38763123456" className="float-btn wa" aria-label="WhatsApp"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 0 0 .613.613l4.458-1.495A11.952 11.952 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.347 0-4.522-.8-6.243-2.143l-.36-.286-3.134 1.051 1.051-3.134-.286-.36A9.956 9.956 0 0 1 2 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg></a>
+        <a href="tel:+38763123456" className="float-btn ph" aria-label="Pozovi"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
       </div>
 
       <button id="btt" className={showBTT?'visible':''} onClick={()=>window.scrollTo({top:0,behavior:'smooth'})} aria-label="Nazad na vrh">↑</button>
